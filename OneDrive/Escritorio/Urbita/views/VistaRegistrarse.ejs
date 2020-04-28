@@ -1,0 +1,85 @@
+<%- include("Header") -%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+
+          <form class="form-signin" id="registrarse" action="/Registrarse" method="POST">
+
+            <img id="preview" src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png">
+
+            <div class="text-center">
+              <p class="errores" id="errores">
+                <%=error%>
+              </p>
+            </div>
+
+            <div class="errores">
+              <ul id="listaerrores"></ul>
+            </div>
+
+            <progress id="img-upload-bar" value="0" max="100" style="margin-bottom: 20px; width: 100%; display: none;"></progress>
+            <input type="text" id="urlimagen" name="urlimagen"  style="display: none;">
+
+            <input type="file" id="avatar" name="file" accept="image/*" style="display: none;">
+            <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2" type="button" onclick="document.getElementById('avatar').click()">Subir mi Fotografia</button>
+
+            <input id="guardaravatar" type="text" name="guardaravatar" style="display: none;">
+             
+            <div class="form-label-group">
+              <select class="form-control" name="tipo" id="tipo" required autofocus>
+                <option>Pasajero</option>
+                <option>Chofer</option>
+              </select>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" type="text" name="nombre" maxlength="15" minlength="3" pattern="^[a-zA-Z0-9_.-]*$" id="nombre" placeholder="nombre" required autofocus>
+              <label for="nombre">Nombre</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" type="text" name="apellido" maxlength="15" minlength="3" pattern="^[a-zA-Z0-9_.-]*$" id="apellido" placeholder="apellido" required autofocus>
+              <label for="apellido">Apellido</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" type="number" name="dni" maxlength="8" minlength="8" onKeyPress="if(this.value.length==8) return false;" pattern="^[a-zA-Z0-9_.-]*$" id="dni" placeholder="dni" required autofocus>
+              <label for="dni">D.N.I.</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" type="email" name="email" maxlength="50" minlength="4" id="email" placeholder="email" required autofocus>
+              <label for="email">Email</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" type="password" name="contraseña" maxlength="8" minlength="2" pattern="^[a-zA-Z0-9_.-]*$" id="contraseña" placeholder="contraseña" required autofocus>
+              <label for="contraseña">Contraseña</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" type="password" name="contraseña2" maxlength="8" minlength="2" pattern="^[a-zA-Z0-9_.-]*$" id="contraseña2" placeholder="contraseña2" required autofocus>
+              <label for="contraseña2">Confirmar contraseña</label>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Crear Usuario</button>
+
+          </form>
+
+          
+
+          <a id="volverref" href="/" class="btn btn-primary" style="display: none;"></a>
+          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="buttom" onclick="document.getElementById('volverref').click()">Volver al menu</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("Footer") -%>
+
