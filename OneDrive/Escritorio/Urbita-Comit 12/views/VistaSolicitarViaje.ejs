@@ -1,0 +1,113 @@
+<%- include("Header") -%>
+<%- include("nav") -%>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+
+          <form class="form-signin" id="SolicitarViaje" action="/<%=Usuarios[0].name + '/' + Usuarios[0].id + '/SolicitarViaje' %>" method="POST">
+
+            <input class="form-control item" type="text" name="Marca" id="Marca" style="display: none;">
+
+            <div class="form-label-group">
+              <input class="form-control item" type="text" name="Desde" maxlength="50" minlength="5" id="Desde" placeholder="Desde" required autofocus>
+              <label for="Desde">Quiero viajar desde</label>
+            </div>
+
+            <div class="form-label-group">
+                <input class="form-control item" type="text" name="Hasta" maxlength="50" minlength="5"id="Hasta" placeholder="Hasta" required autofocus>
+                <label for="Hasta">Quiero viajar hasta</label>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Enviar solicitud</button>
+
+          </form>
+
+          <a id="volverref" href="/Pasajero/<%=id%>" class="btn btn-primary" style="display: none;"></a>
+          <button style="display: block;" id="volverboton" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="buttom" onclick="document.getElementById('terminarref').click()">Volver</button>
+
+
+            <br>
+
+            <div class="text-center">
+                <p class="errores" id="errores">
+                  <%=error%>
+                </p>
+            </div>
+            
+            <div style="display: none;" class="form-label-group">
+                <input class="form-control item" type="text" value="<%=Avatar%>" name="variablemensaje"  id="variablemensaje" placeholder="variablemensaje">
+                <label for="variablemensaje"> </label>
+            </div>
+           
+            <br> 
+
+
+
+
+
+
+
+
+
+            <form style="display: none;" class="form-signin" id="terminarviaje" action="/Pasajero/<%=id%>" method="POST">
+
+              <img style="display: block;"  id="preview" src="<%= Avatar%>">
+
+              <br> 
+              <div style="display: block;" id="mensajediv" class="text-center">
+                  <p class="mensaje" id="mensaje">
+                    Tu chofer es <%= Nombre%>. Tu vehiculo con patente terminada en ***<%=Patente.toString().slice((Patente.length -3), Patente.length)%> esta en camino y llegara en <%=Tiempo%> minutos. Recorda que el precio del vaiaje es de $<%=Precio%>. Por favor, ayudanos a mejorar, dejando tu comentario y calificando al chofer cuando termine el viaje.
+                  </p>
+              </div>
+
+            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
+              <input class="form-control item" type="text" name="autoid" maxlength="50" minlength="5"id="autoid" placeholder="autoid" value="<%=carid%>" required autofocus>
+              <label for="autoid">Comentarios</label>
+            </div>
+
+            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
+              <input class="form-control item" type="text" name="usuarioid" maxlength="50" minlength="5"id="usuarioid" placeholder="usuarioid" value="<%=id%>"  required autofocus>
+              <label for="usuarioid">usuarioid</label>
+            </div>
+
+            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
+              <input class="form-control item" type="text" name="tiempoviaje" maxlength="50" minlength="5"id="tiempoviaje" placeholder="tiempoviaje" value="<%=Tiempo%>"  required autofocus>
+              <label for="tiempoviaje">tiempoviaje</label>
+            </div>
+
+            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
+              <input class="form-control item" type="text" name="precioviaje" maxlength="50" minlength="5"id="precioviaje" placeholder="precioviaje" value="<%=Precio%>"  required autofocus>
+              <label for="precioviaje">precioviaje</label>
+            </div>
+
+            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
+              <input class="form-control item" type="text" name="Comentarios" maxlength="50" minlength="5"id="Comentarios" placeholder="Comentarios" required autofocus>
+              <label for="Comentarios">Comentarios</label>
+            </div>
+            
+            <div id="Calificaciondiv" style="display: block;" class="form-label-group">
+              <select class="form-control" name="Calificacion" id="Calificacion" required autofocus>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <label style="text-align: center;" for="Calificacion">Calificación</label>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Finalizar Viaje</button>
+
+            </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("Footer") -%>

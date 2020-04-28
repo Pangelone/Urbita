@@ -1,0 +1,49 @@
+<%- include("Header") -%>
+<%- include("nav") -%>
+
+<div class="row">
+    <div class="col-md-8 mb-5"></div>
+</div>
+
+<div class="container">    
+    <div class="row">
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+            <img class="card-img-top cartacaja" src="https://image.flaticon.com/icons/svg/2481/2481420.svg" alt="asdasdasd">
+            <div class="card-body">
+                <h4 class="card-title">Ver mis viajes</h4>
+                <p class="card-text">Podes consultar todos tus viajes y calificar a los conductores para seguir mejorando nuestra comunidad.</p>
+            </div>
+            <div class="card-footer text-center">
+                <a href="#" class="btn btn-primary">Ir ahora</a>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+            <img class="card-img-top" src="https://image.flaticon.com/icons/svg/2078/2078753.svg" alt="">
+            <div class="card-body">
+                <h4 class="card-title">Solicitar nuevo viaje</h4>
+                <p class="card-text">Un conductor se pondra a tu disposicion de inmediato.</p>
+            </div>
+            <div class="card-footer text-center">
+                <a href="/<%=Usuarios[0].name + '/' + Usuarios[0].id + '/SolicitarViaje' %>" class="btn btn-primary">Ir ahora</a>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+            <img class="card-img-top" src="https://image.flaticon.com/icons/svg/2521/2521856.svg" alt="">
+            <div class="card-body">
+                <h4 class="card-title">Editar perfil</h4>
+                <p class="card-text">Actualiza todos tus datos personales cuantas veces sea necesario.</p>
+            </div>
+            <div class="card-footer text-center">
+                <a href="/<%=Usuarios[0].name + '/' + Usuarios[0].id + '/Editar' %>" class="btn btn-primary">Ir ahora</a>
+            </div>
+            </div>
+        </div>
+    </div>  
+</div>
+  
+<%- include("Footer") -%>

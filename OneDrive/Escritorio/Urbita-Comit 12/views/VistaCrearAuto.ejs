@@ -1,0 +1,67 @@
+<%- include("Header") -%>
+<%- include("nav") -%>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+
+          <form class="form-signin" id="RegistrarAuto" action="/<%=Usuarios[0].name + '/' + Usuarios[0].id + '/CrearAuto' %>" method="POST">
+
+            <img id="preview" src="https://www.aboutespanol.com/thmb/VDmtYQ1GD7F5srjA-KttJ1qvTB8=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/431168_63757-a-rr-597ca3865f9b58928bdcf3f8.jpg">
+
+              <div class="errores">
+                <ul id="listaerrores"></ul>
+              </div>
+
+              <div class="text-center">
+                <p class="errores" id="errores">
+                  <%=error%>
+                </p>
+              </div>
+
+            <div class="form-label-group">
+                <select class="form-control" name="Marcas" id="Marcas" required autofocus>
+                  <% for (let i = 0; i< Marcas.length; i++) { %> 
+                    <option value="<%=Marcas[i].id%>">
+                        <%=Marcas[i].name %>
+                    </option>
+                    <% } %>
+                </select>
+            </div>
+
+            <input class="form-control item" type="text" name="Marca" id="Marca" style="display: none;">
+
+            <div class="form-label-group">
+              <input class="form-control item" type="text" name="Patente" maxlength="8" minlength="6" pattern="^[a-zA-Z0-9_.-]*$" id="Patente" placeholder="Patente" required autofocus>
+              <label for="Patente">Patente</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" type="time" name="Desde" maxlength="15" minlength="3" pattern="^[a-zA-Z0-9_.-]*$" id="Desde" placeholder="Desde" required  autofocus>
+              <label for="Desde">Trabajare Desde</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" type="time" name="Hasta" maxlength="50" minlength="4" id="Hasta" placeholder="Hasta" required  autofocus>
+              <label for="Hasta">Trabajare Hasta</label>
+            </div>
+                
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Crear Auto</button>
+
+          </form>
+
+
+            <a id="volverref" href="/<%=Usuarios[0].name + '/' + Usuarios[0].id  %>" class="btn btn-primary" style="display: none;"></a>
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="buttom" onclick="document.getElementById('volverref').click()">Volver al menu</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("Footer") -%>

@@ -1,0 +1,57 @@
+<%- include("Header") -%>
+<%- include("nav") -%>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+
+          <form class="form-signin" id="registrarse" action="/<%=Usuarios[0].name + '/' + Usuarios[0].id + '/Editar' %>" method="POST">
+
+            <img id="preview" class="preview" src="<%=Usuarios[0].avatar%>">
+
+            <progress id="img-upload-bar" class="img-upload-bar" value="0" max="100" style="margin-bottom: 20px; width: 100%; display: none;"></progress>
+            <input type="text" id="urlimagen" name="urlimagen"  style="display: none;">
+
+            <input type="file" id="avatar" name="file" accept="image/*" style="display: none;">
+            <button class="btn btn-lg btn-secondary btn-block btn-login text-uppercase font-weight-bold mb-2" type="button" onclick="document.getElementById('avatar').click()">Subir mi Fotografia</button>
+
+            <input id="guardaravatar" type="text" name="guardaravatar" style="display: none;">
+
+            <div class="form-label-group" style="display: none;">
+              <input class="form-control item" value="<%=Usuarios[0].name%>" type="text" name="tipo" maxlength="15" minlength="3" pattern="^[a-zA-Z0-9_.-]*$" id="nombre" placeholder="nombre"  autofocus>
+              <label for="nombre">Nombre</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" value="<%=Usuarios[0].first_name%>" type="text" name="nombre" maxlength="15" minlength="3" pattern="^[a-zA-Z0-9_.-]*$" id="nombre" placeholder="nombre"  autofocus>
+              <label for="nombre">Nombre</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" value="<%=Usuarios[0].last_name%>" type="text" name="apellido" maxlength="15" minlength="3" pattern="^[a-zA-Z0-9_.-]*$" id="apellido" placeholder="apellido"  autofocus>
+              <label for="apellido">Apellido</label>
+            </div>
+
+            <div class="form-label-group">
+              <input class="form-control item" value="<%=Usuarios[0].email%>" type="email" name="email" maxlength="50" minlength="4" id="email" placeholder="email"  autofocus>
+              <label for="email">Email</label>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Actualizar datos</button>
+
+          </form>   
+
+          <a id="volverref" href="/<%=Usuarios[0].name + '/' + Usuarios[0].id  %>" class="btn btn-primary" style="display: none;">Ir ahora</a>
+          <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="buttom" onclick="document.getElementById('volverref').click()">Volver al menu</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("Footer") -%>

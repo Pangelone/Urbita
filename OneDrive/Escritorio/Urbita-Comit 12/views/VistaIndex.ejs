@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="/stylesheets/style.css"> 
+        <script src="../../javascripts/js-front.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">      
+        <title>Urbita</title>
+    </head>
+
+    <body class="bodyindex">
+
+
+  <div class="container-fluid" id="Bodyindex">
+    <div class="row no-gutter">
+      <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+      <div class="col-md-8 col-lg-6">
+        <div class="login d-flex align-items-center py-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-9 col-lg-8 mx-auto">
+                <h1 class="login-heading mb-4" style="text-align: center;">URBITA</h1>
+
+                <form class="form-signin" action="/" method="POST" id="loggin">
+
+                  <div class="text-center">
+                    <p class="errores" id="errores">
+                      <%=error%>
+                    </p>
+                  </div>
+
+                  <div class="form-label-group">
+                    <input  class="form-control item" type="email" name="email2" maxlength="50" minlength="4" id="logginemail" placeholder="email" required autofocus>
+                    <label for="logginemail">Email</label>
+                  </div>
+      
+                  <div class="form-label-group">
+                    <input class="form-control item" type="password" name="contraseña2" maxlength="8" minlength="2" pattern="^[a-zA-Z0-9_.-]*$" id="loggincontraseña" placeholder="contraseña" required autofocus>
+                    <label for="loggincontraseña">Contraseña</label>
+                  </div>
+                  
+                  <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"  type="submit">Iniciar Sesion</button>
+               
+                  <div class="text-center">
+                    <a href="/Registrarse" class="small" href="#">Registrarme</a>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
