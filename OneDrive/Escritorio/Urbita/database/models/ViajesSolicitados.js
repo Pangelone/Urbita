@@ -23,6 +23,12 @@ module.exports = function(sequelize, DataTypes) {
         estimated_time:{
             type: DataTypes.INTEGER
         },
+        created_at:{
+            type: DataTypes.DATE
+        },
+        updated_at:{
+            type: DataTypes.DATE
+        },
 
     }
 

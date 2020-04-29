@@ -8,7 +8,7 @@
       <div class="card card-signin my-5">
         <div class="card-body">
 
-          <form class="form-signin" id="SolicitarViaje" action="/<%=Usuarios[0].name + '/' + Usuarios[0].id + '/SolicitarViaje' %>" method="POST">
+          <form class="form-signin" id="SolicitarViaje" action="/Pasajero/<%=id%>/SolicitarViaje" method="POST">
 
             <input class="form-control item" type="text" name="Marca" id="Marca" style="display: none;">
 
@@ -27,7 +27,7 @@
           </form>
 
           <a id="volverref" href="/Pasajero/<%=id%>" class="btn btn-primary" style="display: none;"></a>
-          <button style="display: block;" id="volverboton" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="buttom" onclick="document.getElementById('terminarref').click()">Volver</button>
+          <button style="display: block;" id="volverboton" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="buttom" onclick="document.getElementById('volverref').click()">Volver al menu</button>
 
 
             <br>
@@ -60,37 +60,37 @@
               <br> 
               <div style="display: block;" id="mensajediv" class="text-center">
                   <p class="mensaje" id="mensaje">
-                    Tu chofer es <%= Nombre%>. Tu vehiculo con patente terminada en ***<%=Patente.toString().slice((Patente.length -3), Patente.length)%> esta en camino y llegara en <%=Tiempo%> minutos. Recorda que el precio del vaiaje es de $<%=Precio%>. Por favor, ayudanos a mejorar, dejando tu comentario y calificando al chofer cuando termine el viaje.
+                  Tu chofer es <%= Nombre%>. Tu vehiculo con patente terminada en ***<%=Patente.toString().slice((Patente.length -3), Patente.length)%> esta en camino y llegara en <%=Tiempo%> minutos. Recorda que el precio del vaiaje es de $<%=Precio%>. Por favor, ayudanos a mejorar, dejando tu comentario y calificando al chofer cuando termine el viaje.
                   </p>
               </div>
 
-            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
+            <div id="Comentariosdiv" style="display: none;" class="form-label-group">
               <input class="form-control item" type="text" name="autoid" maxlength="50" minlength="5"id="autoid" placeholder="autoid" value="<%=carid%>" required autofocus>
               <label for="autoid">Comentarios</label>
             </div>
 
-            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
+            <div id="Comentariosdiv" style="display: none;" class="form-label-group">
               <input class="form-control item" type="text" name="usuarioid" maxlength="50" minlength="5"id="usuarioid" placeholder="usuarioid" value="<%=id%>"  required autofocus>
               <label for="usuarioid">usuarioid</label>
             </div>
 
-            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
+            <div id="Comentariosdiv" style="display: none;" class="form-label-group">
               <input class="form-control item" type="text" name="tiempoviaje" maxlength="50" minlength="5"id="tiempoviaje" placeholder="tiempoviaje" value="<%=Tiempo%>"  required autofocus>
               <label for="tiempoviaje">tiempoviaje</label>
             </div>
 
-            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
+            <div id="Comentariosdiv" style="display: none;" class="form-label-group">
               <input class="form-control item" type="text" name="precioviaje" maxlength="50" minlength="5"id="precioviaje" placeholder="precioviaje" value="<%=Precio%>"  required autofocus>
               <label for="precioviaje">precioviaje</label>
             </div>
 
-            <div id="Comentariosdiv" style="display: block;" class="form-label-group">
-              <input class="form-control item" type="text" name="Comentarios" maxlength="50" minlength="5"id="Comentarios" placeholder="Comentarios" required autofocus>
+            <div id="Comentariosdiv" style="display: none;" class="form-label-group">
+              <input class="form-control item" type="text" name="Comentarios" maxlength="50" minlength="5"id="Comentarios" placeholder="Comentarios"  autofocus>
               <label for="Comentarios">Comentarios</label>
             </div>
             
-            <div id="Calificaciondiv" style="display: block;" class="form-label-group">
-              <select class="form-control" name="Calificacion" id="Calificacion" required autofocus>
+            <div id="Calificaciondiv" style="display: none;" class="form-label-group">
+              <select class="form-control" name="Calificacion" id="Calificacion"  autofocus>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>

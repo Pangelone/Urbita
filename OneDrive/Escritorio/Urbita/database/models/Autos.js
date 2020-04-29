@@ -23,6 +23,13 @@ module.exports = function(sequelize, DataTypes) {
         work_to_hour:{
             type: DataTypes.TIME
         },
+        created_at:{
+            type: DataTypes.DATE
+        },
+        updated_at:{
+            type: DataTypes.DATE
+        },
+
         
     }
 

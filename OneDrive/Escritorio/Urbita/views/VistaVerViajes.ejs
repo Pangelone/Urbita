@@ -1,0 +1,31 @@
+<%- include("Header") -%>
+<%- include("nav") -%>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-md-9 col-lg-12 mx-auto">
+      <div class="card card-signin my-">
+        <div class="card-body">
+
+
+            <ul class="list-group">
+
+                <% for (let i = 0; i< ViajesSolicitados.length; i++) { %> 
+                    <li style="text-align: center;" class="list-group-item"> Solicitado el <%=new Date(ViajesSolicitados[i].created_at).toLocaleString().slice(0, 10)%> a las <%=new Date(ViajesSolicitados[i].created_at).toLocaleString().slice(10, 15)%> yendo desde <%=ViajesSolicitados[i].from_address%>, hasta <%=ViajesSolicitados[i].to_address%> en un junto al chofer  <%=Usuarios[i].first_name%> <%=Usuarios[i].last_name%> por un valor de $<%=ViajesSolicitados[i].total_price%> y una duracion de <%=ViajesSolicitados[i].estimated_time%> minutos. </li>
+                <% } %>
+
+            </ul>
+            <br
+            <a id="volverref" href="/Pasajero/<%=id%>" class="btn btn-primary" style="display: none;"></a>
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="buttom" onclick="document.getElementById('volverref').click()">Volver al menu</button>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("Footer") -%>

@@ -6,6 +6,8 @@ router.get('/:id',ControlPasajero.Consultar);
 
 router.post('/:id',ControlPasajero.Finalizarviaje);
 
+router.get('/:id/VerViajes',ControlPasajero.Listar);
+
 router.get('/:id/Editar',ControlPasajero.ConsultarEditar);
 
 router.post('/:id/Editar',ControlPasajero.Actualizar);
