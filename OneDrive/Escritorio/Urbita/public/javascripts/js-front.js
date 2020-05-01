@@ -50,6 +50,19 @@ window.addEventListener("load",function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     //Valido registro de usuarios
 
     let registro = document.getElementById("registrarse");
@@ -94,6 +107,64 @@ window.addEventListener("load",function() {
 
 
 
+
+
+
+
+
+
+
+        //Valido registro de Solicitud de viaje
+
+        let registro2 = document.getElementById("SolicitarViaje");
+    
+        if (registro2 != null) {
+    
+            registro2.addEventListener("submit", function(e){
+    
+                let errores = [];
+        
+                while (document.getElementById("listaerrores").firstChild) {
+                document.getElementById("listaerrores").removeChild(document.getElementById("listaerrores").firstChild);
+                }
+        
+                let Desde = document.getElementById("Desde");
+                let Hasta = document.getElementById("Hasta");
+        
+                document.getElementById("errores").style.display = "none";
+        
+                if (Desde.value == Hasta.value){
+                    errores.push("El origen y el destino, no pueden ser iguales.")
+                };
+                
+                if (errores.length >0){
+        
+                    e.preventDefault()
+                    let ulerrores = document.querySelector("div.errores ul");
+        
+                    for (let i=0; i<errores.length; i++){
+                        ulerrores.innerHTML += "<li>" + errores[i] +  "</li>"
+                    };
+                    
+                }
+            });
+    
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //Valido registro de Autos
 
     let registroAuto = document.getElementById("RegistrarAuto");
@@ -132,6 +203,18 @@ window.addEventListener("load",function() {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     //Lleno input con select en crearautos
 
     let autoselect = document.getElementById("Marcas");
@@ -145,6 +228,20 @@ window.addEventListener("load",function() {
         });
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //Muestro mensaje al solicitar viaje
@@ -169,4 +266,12 @@ window.addEventListener("load",function() {
 
 
         
+
+
+
+
+
+
+
+
 });

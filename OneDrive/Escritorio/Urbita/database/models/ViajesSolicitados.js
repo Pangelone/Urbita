@@ -50,6 +50,16 @@ module.exports = function(sequelize, DataTypes) {
             as: "Usuario",
             foreignKey: "user_id"     
         });
+
+        ViajesSolicitados.belongsToMany(models.Autos,{
+            as: "Autos",
+            through: "trip",
+            foreignKey: "trip_id",
+            otherKey: "car_id",
+            timestamps: false
+        });
+
+        
     }
 
     return ViajesSolicitados;

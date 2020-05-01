@@ -25,40 +25,41 @@ let ControlPasajero = {
         db.Marcas.findAll({
             include: [{association: "Autos"}]
         })
-
         let Usuarios =  
         db.Usuarios.findAll({
+            where:{
+                id: req.params.id,
+            },
             include: [{association: "ViajesSolicitados"},{association: "Autos"}]
         })
-
         let Autos =  
         db.Autos.findAll({
             include: [{association: "Usuario"},{association: "Marca"}]
         })
-
-        let Comentarios =  
-        db.Comentarios.findAll({
-            include: [{association: "ViajeConfirmado"}]
-        })
-
         let ViajesSolicitados =  
         db.ViajesSolicitados.findAll({
             where:{
-                
+                user_id: req.params.id,
             },
-            include: [{association: "ViajesConfirmados"},{association: "Usuario"}]
+            include: [{association: "ViajesConfirmados"},{association: "Usuario"},{association: "Autos"}]
         })
-
         let ViajesConfirmados =  
         db.ViajesConfirmados.findAll({
             include: [{association: "ViajeSolicitado"},{association: "Comentarios"},{association: "Auto"}]
         })
 
-        Promise.all([Comentarios,Marcas,Usuarios,ViajesSolicitados,ViajesConfirmados,Autos])
+        if (ViajesSolicitados.length > 0){
+            Promise.all([Marcas,Usuarios,ViajesSolicitados,ViajesConfirmados,Autos])
+            .then(function([Marcas,Usuarios,ViajesSolicitados,ViajesConfirmados,Autos]){
+                return res.render("VistaVerViajes",{tipo:"Pasajero",Usuarios:Usuarios,error:"",id:req.params.id,Marcas:Marcas,ViajesConfirmados:ViajesConfirmados,Autos:Autos,Usuarios:Usuarios,ViajesSolicitados:ViajesSolicitados}); 
+            });
+        }else{
+            Promise.all([Marcas,Usuarios,ViajesSolicitados,ViajesConfirmados,Autos])
+            .then(function([Marcas,Usuarios,ViajesSolicitados,ViajesConfirmados,Autos]){
+                return res.render("VistaVerViajes",{tipo:"Pasajero",Usuarios:Usuarios,error:"Aun has realizado ningun viaje.",id:req.params.id,Marcas:Marcas,ViajesConfirmados:ViajesConfirmados,Autos:Autos,Usuarios:Usuarios,ViajesSolicitados:ViajesSolicitados}); 
+            });
+        }
 
-        .then(function([Marcas,Usuarios,ViajesSolicitados,ViajesConfirmados,Autos]){
-            return res.render("VistaVerViajes",{Comentarios:Comentarios,id:req.params.id,Marcas:Marcas,ViajesConfirmados:ViajesConfirmados,Autos:Autos,Usuarios:Usuarios,ViajesSolicitados:ViajesSolicitados}); 
-        });
 
     },
 
@@ -81,12 +82,10 @@ let ControlPasajero = {
             where:{
                 id: req.params.id,
             }
-        })
-        
+        })        
         .then(function(Usuarios){
-            return res.render("VistaPasajero",{Usuarios:Usuarios}); 
+            return res.render("VistaPasajero",{tipo:"Pasajero",id:req.params.id,Usuarios:Usuarios}); 
         });
-
     },
 
 
@@ -114,7 +113,6 @@ let ControlPasajero = {
             },
             include: [{association: "ViajesConfirmados"},{association: "Usuario"}]
         })
-
         let Usuarios = db.Usuarios.findAll({
             where:{
                 id: req.params.id,
@@ -122,18 +120,31 @@ let ControlPasajero = {
             include: [{association: "ViajesSolicitados"},{association: "Autos"}]
         })
         
-        Promise.all([viajes,Usuarios]) 
-
+        Promise.all([viajes,Usuarios])
         .then(function([Viajes,Usuarios]){
-            db.ViajesConfirmados.create({
+            let ViajeConfirmado = db.ViajesConfirmados.create({
                 trip_id: Viajes[0].id,
                 car_id: req.body.autoid,
             });
-            return res.render("VistaPasajero",{Usuarios:Usuarios, Viajes:Viajes}); 
+            let eltrip = Viajes[0].id
+            Promise.all([ViajeConfirmado]) 
+            .then(function([Viajes,Usuarios]){
+                 let BuescoViaje = db.ViajesConfirmados.findAll({
+                    where:{                        
+                        trip_id: eltrip,
+                    },
+                });
+                Promise.all([BuescoViaje]) 
+                .then(function([BuescoViaje,Viajes,Usuarios]){
+                    db.Comentarios.create({
+                        trip_id: BuescoViaje[0].id,
+                        rating: req.body.Calificacion,
+                        content: req.body.Comentarios,
+                    });
+                    return res.render("VistaPasajero",{tipo:"Pasajero",id:req.params.id,Usuarios:Usuarios, Viajes:Viajes}); 
+                });            
+            });
         });
-
-
-
     },
 
 
@@ -157,12 +168,10 @@ let ControlPasajero = {
             where:{
                 id: req.params.id,
             }
-        })
-        
+        })        
         .then(function(Usuarios){
-            return res.render("VistaEditarUsuario",{Usuarios:Usuarios}); 
+            return res.render("VistaEditarUsuario",{tipo:"Pasajero",id:req.params.id,Usuarios:Usuarios}); 
         });
-
     },
 
 
@@ -222,14 +231,9 @@ let ControlPasajero = {
                 id: req.params.id,
             }
         })
-
-        let ConsultaMarca = db.Marcas.findAll()
-        
-        let ConsultaAuto = db.Autos.findAll({
-            
-            
-            where:{
-                
+        let ConsultaMarca = db.Marcas.findAll()        
+        let ConsultaAuto = db.Autos.findAll({          
+            where:{                
                 [Op.and]:[
                     {
                         work_to_hour: {
@@ -242,17 +246,13 @@ let ControlPasajero = {
                         }
                     }
                 ]
-
-            }
-            
+            }            
         })
 
         Promise.all([ConsultaUsuario,ConsultaAuto,ConsultaMarca])
-
         .then(function([Usuarios, Autos, Marcas, Avatar , Nombre, Patente, error]){
-            return res.render("VistaSolicitarViaje",{carid: "",Precio:"", Tiempo:"",Avatar:"",Marcas:Marcas ,Nombre:"",Patente:"", Usuarios:Usuarios , Autos:Autos , error:"", id:req.params.id}); 
+            return res.render("VistaSolicitarViaje",{tipo:"Pasajero",carid: "",Precio:"", Tiempo:"",Avatar:"",Marcas:Marcas ,Nombre:"",Patente:"", Usuarios:Usuarios , Autos:Autos , error:"", id:req.params.id}); 
         });
-
     },
 
 
@@ -279,14 +279,9 @@ let ControlPasajero = {
                 id: req.params.id,
             }
         })
-
-        let ConsultaMarca = db.Marcas.findAll()
-        
-        
-        let ConsultaAuto = db.Autos.findAll({
-            
-            where:{
-                
+        let ConsultaMarca = db.Marcas.findAll()      
+        let ConsultaAuto = db.Autos.findAll({            
+            where:{                
                 [Op.and]:[
                     {
                         work_to_hour: {
@@ -299,23 +294,15 @@ let ControlPasajero = {
                         }
                     }
                 ]
-
-            }
-            
+            }            
         })
 
-
-
         Promise.all([ConsultaUsuario,ConsultaAuto,ConsultaMarca])
-
-        .then(function([Usuarios, Autos, Avatar, Marcas , Nombre, Patente, error]){
-            
-            let RandomAuto = Math.floor((Math.random() * (Autos.length )) + 0)
-        
-            let ConsultaAuto = db.Autos.findAll({
-            
-                where:{
-                    
+        .then(function([Usuarios, Autos, Avatar, Marcas , Nombre, Patente, error]){            
+            let RandomAuto = Math.floor((Math.random() * (Autos.length )) + 0)  
+            let condicion = Autos.length         
+            let ConsultaAuto = db.Autos.findAll({            
+                where:{                    
                     [Op.and]:[
                         {
                             work_to_hour: {
@@ -327,65 +314,45 @@ let ControlPasajero = {
                             [Op.lte]: moment().format('HH:mm:ss')   
                             }
                         }
-                    ]
-    
-                }
-                
+                    ]    
+                }                
             })
 
+            if (condicion>0){
                 let ConsultaMarca = db.Marcas.findAll({
                     where:{
                         id: Autos[RandomAuto].brand_id,
                     }
-                })
-    
+                })    
                 let ConsultaUsuario = db.Usuarios.findAll({
                     where:{
                         id: Autos[RandomAuto].user_id,
                     }
                 })
 
+                Promise.all([ConsultaUsuario,ConsultaAuto,ConsultaMarca])    
+                .then(function([Usuarios, Autos, Avatar, Marcas , Nombre, Patente, error]){
+                    let RandomPrecio = Math.floor((Math.random() * 5000) + 1)
+                    let RandomTime = Math.floor((Math.random() * 60) + 1)   
 
-
-            Promise.all([ConsultaUsuario,ConsultaAuto,ConsultaMarca])
-    
-            .then(function([Usuarios, Autos, Avatar, Marcas , Nombre, Patente, error]){
-
-                let RandomPrecio = Math.floor((Math.random() * 5000) + 1)
-                let RandomTime = Math.floor((Math.random() * 60) + 1)
-    
-                if (Autos.length >0) {
-    
-                    db.ViajesSolicitados.create({
-    
+                    db.ViajesSolicitados.create({    
                         user_id: req.params.id,
                         from_address: req.body.Desde,
                         to_address: req.body.Hasta,
                         total_price: RandomPrecio,
-                        estimated_time: RandomTime,
-        
-                    });
-        
-                    return res.render("VistaSolicitarViaje",{Tiempo:RandomTime, Precio:RandomPrecio, Usuarios:Usuarios , Autos:Autos, error: "",Avatar: Usuarios[0].avatar, Nombre:Usuarios[0].first_name + " " + Usuarios[0].last_name,carid: Autos[RandomAuto].id, Patente: Autos[RandomAuto].patent, Marcas:Marcas , id:req.params.id}); 
-              
-                } else{
-    
-                    return res.render("VistaSolicitarViaje",{Precio:"", Tiempo:"", Usuarios:Usuarios , Autos:Autos , error:"Lo sentimos, no hay choferes disponibles.", Avatar: "", Nombre:"", Patente:"", Marcas:"" , id:req.params.id, carid: ""}); 
-    
-                }
-    
-            });
-        
+                        estimated_time: RandomTime,        
+                    });        
+                    return res.render("VistaSolicitarViaje",{tipo:"Pasajero",Tiempo:RandomTime, Precio:RandomPrecio, Usuarios:Usuarios , Autos:Autos, error: "",Avatar: Usuarios[0].avatar, Nombre:Usuarios[0].first_name + " " + Usuarios[0].last_name,carid: Autos[RandomAuto].id, Patente: Autos[RandomAuto].patent, Marcas:Marcas , id:req.params.id});                
+                });     
+            }else{
 
-        });
-    
-
-
+                Promise.all([ConsultaUsuario,ConsultaAuto,ConsultaMarca])    
+                .then(function([Usuarios, Autos, Avatar, Marcas , Nombre, Patente, error]){
+                    return res.render("VistaSolicitarViaje",{tipo:"Pasajero",Precio:"", Tiempo:"", Usuarios:Usuarios , Autos:Autos , error:"Lo sentimos, no hay choferes disponibles.", Avatar: "", Nombre:"", Patente:"", Marcas:"" , id:req.params.id, carid: ""});    
+                });     
+            }              
+        }); 
     },
-
-
-
-
 };      
 
 module.exports = ControlPasajero;

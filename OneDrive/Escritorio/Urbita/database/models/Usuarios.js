@@ -30,6 +30,12 @@ module.exports = function(sequelize, DataTypes) {
         password:{
             type: DataTypes.STRING
         },
+        created_at:{
+            type: DataTypes.DATE
+        },
+        updated_at:{
+            type: DataTypes.DATE
+        },
         
 
     }
